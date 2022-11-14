@@ -7,13 +7,14 @@
 
 from __future__ import division
 import sys  
-reload(sys)
+import importlib
+importlib.reload(sys)
 import codecs
 import collections
 import re
 from subprocess import call
 import numpy as np
-sys.setdefaultencoding('utf8')
+#sys.setdefaultencoding('utf8')
 
 
 def wagner_fischer(r, h):

@@ -8,14 +8,15 @@
 
 from __future__ import division
 import sys  
-reload(sys)
+import importlib
+importlib.reload(sys)
 import codecs
 import collections
 import re
 from subprocess import call
 import numpy as np
 from mr import *
-sys.setdefaultencoding('utf8')
+#sys.setdefaultencoding('utf8')
 import argparse
 
 def werf(r, h):
@@ -74,7 +75,7 @@ if __name__ == "__main__":
         
         #make sure that all files has the same ids
         if not (sorted(ref_dict[idx].keys()) == sorted(hyp_dict.keys())):
-            print "WARNING Files:", ref_file, args.hyp, "have differnt ids."
+            print("WARNING Files:", ref_file, args.hyp, "have differnt ids.")
             
         i=d=s=c=e=i_t=d_t=s_t=c_t=e_t=wer=wer_t=wc=wc_t=hc=hc_t=0
         align_ref[idx]={}
@@ -127,29 +128,29 @@ if __name__ == "__main__":
     
     #Show results here    
     if args.show_alignment or args.show_multiple_alignment or args.show_errors: 
-        print 'Detailed results:'
+        print('Detailed results:')
         for sentence_id in hyp_dict.keys():
-            print 'ID:', sentence_id
+            print('ID:', sentence_id)
             for ref_id in range(nref):
-                print 'File:', args.ref[ref_id]
-                print results_details['file_'+str(ref_id)]['sent_'+sentence_id]['wer']
+                print('File:', args.ref[ref_id])
+                print(results_details['file_'+str(ref_id)]['sent_'+sentence_id]['wer'])
                 if args.show_alignment:
-                    print 'Ref: ',' '.join(results_details['file_'+str(ref_id)]['sent_'+sentence_id]['aligned_r'])
-                    print 'Hyp:  ',' '.join(results_details['file_'+str(ref_id)]['sent_'+sentence_id]['aligned_h'])
-                    print 'Err:  ',' '.join(results_details['file_'+str(ref_id)]['sent_'+sentence_id]['operations'])
-                print ''
-            print results_details['sent_'+sentence_id]['mrwer']
+                    print('Ref: ',' '.join(results_details['file_'+str(ref_id)]['sent_'+sentence_id]['aligned_r']))
+                    print('Hyp:  ',' '.join(results_details['file_'+str(ref_id)]['sent_'+sentence_id]['aligned_h']))
+                    print('Err:  ',' '.join(results_details['file_'+str(ref_id)]['sent_'+sentence_id]['operations']))
+                print('')
+            print(results_details['sent_'+sentence_id]['mrwer'])
             if args.show_multiple_alignment:
-                print results_details['sent_'+sentence_id]['align_details']
-            print '####'
+                print(results_details['sent_'+sentence_id]['align_details'])
+            print('####')
              
-    print 'Overall results:'
+    print('Overall results:')
     for ref_id in range(nref):
-        print 'File:', args.ref[ref_id]
-        print results_details['file_'+str(ref_id)]['wer']
+        print('File:', args.ref[ref_id])
+        print(results_details['file_'+str(ref_id)]['wer'])
     
-    print '\n', results_details['mrwer']
-    print '%%Overall AV-WER:%.2f' % (total_wer/nref*100)
+    print('\n', results_details['mrwer'])
+    print('%%Overall AV-WER:%.2f' % (total_wer/nref*100))
     
 
     
